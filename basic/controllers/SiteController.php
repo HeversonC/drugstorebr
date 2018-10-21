@@ -37,6 +37,13 @@ class SiteController extends Controller
             ],
         ];
     }
+/**
+*visao
+*/
+    public function actionSay($message = 'Hello') {
+      // die(var_dump($message));
+      return $this->render('say', ['message' => $message]);
+    }
 
     /**
      * {@inheritdoc}
