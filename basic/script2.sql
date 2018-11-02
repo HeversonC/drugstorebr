@@ -1,21 +1,41 @@
 #DROP TABLE aula;
 #DROP TABLE curso;
+#CREATE TABLE IF NOT EXISTS produto (
 
-CREATE TABLE IF NOT EXISTS curso (
-curso_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-curso_nome VARCHAR(45),
-PRIMARY KEY (curso_id)
-);
+CREATE TABLE produto (
+    id INT NOT NULL,
+    nome VARCHAR(30),
+    descricao VARCHAR(30),
+    preco DECIMAL,
+    qtde int,
 
+    PRIMARY KEY(id)
+)   ENGINE=INNODB;
 
-CREATE TABLE aula (
-aula_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-aula_nome VARCHAR(45),
-curso_id INT UNSIGNED NOT NULL,
-PRIMARY KEY (aula_id),
-FOREIGN KEY (curso_id) REFERENCES curso (curso_id)
-);
+CREATE TABLE cliente (
+    id INT NOT NULL,
+    nome VARCHAR(45),
+    endereco VARCHAR(30),
+    telefone int,
+    PRIMARY KEY (id)
+)   ENGINE=INNODB;
 
-CREATE TABLE cliente(
-cliente_id int not null auto_increment
-);
+CREATE TABLE pedido (
+    id INT NOT NULL AUTO_INCREMENT,
+    data date,
+    total decimal,
+    produto_id INT NOT NULL,
+    cliente_id INT NOT NULL,
+
+    PRIMARY KEY(id),
+    INDEX (produto_id),
+    INDEX (cliente_id),
+
+    FOREIGN KEY (produto_id)
+      REFERENCES produto(id)
+      ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    FOREIGN KEY (cliente_id)
+      REFERENCES cliente(id)
+)   ENGINE=INNODB;
+
